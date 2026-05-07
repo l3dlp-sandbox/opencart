@@ -312,6 +312,8 @@ The Discount tab allows you to create volume discounts that encourage customers 
 | 50+      | $19.99 | VIP Customers  | 3        |
 | 100+     | $14.99 | Wholesale      | 4        |
 
+{% embed url="https://www.youtube.com/watch?v=yrK9DC0xbjE" %}
+
 **Example Discount Structure:**
 
 * Buy 10+ items: $24.99 each (regular price $29.99)

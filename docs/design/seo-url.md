@@ -6,7 +6,7 @@ description: Configuring SEO-friendly URLs and URL aliases in OpenCart 4
 
 ## Video Tutorial
 
-{% embed url="https://youtu.be/some-id" %}
+{% embed url="https://www.youtube.com/watch?v=1qNs1XxMYIY" %}
 
 _Video: Managing SEO URLs in OpenCart 4_
 

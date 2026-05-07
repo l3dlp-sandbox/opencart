@@ -12,7 +12,7 @@ description: >-
 
 ## Video Tutorial
 
-{% embed url="https://youtu.be/some-id" %}
+{% embed url="https://www.youtube.com/watch?v=68Irl6ecdMQ" %}
 
 _Video: Using the Theme Editor in OpenCart 4_
 
