@@ -19,24 +19,11 @@ customElements.define('x-include', class extends WebComponent {
         // Get the source HTML to load
         if (!this.src) return;
 
-        //console.log('RENDER');
-        //console.log(config.config_path + this.src + '.js');
+        let object = await import(config.config_path + this.src + '.js');
 
-        let controller = await import(config.config_path + this.src + '.js');
+        let controller = new object.default(this);
 
-        let object = new controller.default(this);
-
-        let methods = Object.getOwnPropertyNames(Object.getPrototypeOf(object));
-
-        for (let method of methods) {
-            if (method !== 'render' && method !== 'constructor') {
-                if (typeof object[method] === 'function') {
-                    this[method] = object[method].bind(this);
-                }
-            }
-        }
-
-        let output = await object.render();
+        let output = await controller.render();
 
         if (output) {
             return output;
