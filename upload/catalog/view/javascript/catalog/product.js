@@ -25,7 +25,7 @@ export default class extends Controller {
 
         console.log(product);
 
-        //if (product.length) {
+        if (product.length) {
             data.product_id = product.product_id;
             data.thumb = product.thumb;
             data.popup = product.popup;
@@ -74,8 +74,8 @@ export default class extends Controller {
             data.discounts = [];
 
             //for (let discount of product.discount) {
-           //     data.discounts = [];
-           // }
+            //  data.discounts = [];
+            //}
 
             data.options = product.option;
 
@@ -84,7 +84,7 @@ export default class extends Controller {
             data.currency = currency;
 
             return loader.template('product/product', { ...data, ...language, ...config });
-        //}
+        }
     }
 
     onChange(e) {
