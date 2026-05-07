@@ -36,10 +36,8 @@ export default class extends Controller {
     onClick(e) {
         e.preventDefault();
 
-
-
         console.log('works');
         console.log(this.$contact);
-
     }
 }
+
