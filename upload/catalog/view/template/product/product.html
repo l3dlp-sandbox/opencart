@@ -53,6 +53,7 @@
 
     {% if price %}
       <ul class="list-unstyled">
+
         {% if not special %}
           <li><h2><span class="price-new"><x-currency code="{{ currency }}" amount="{{ price }}"></x-currency></span></h2></li>
         {% else %}
