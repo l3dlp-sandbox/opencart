@@ -104,6 +104,22 @@ class Product extends \Opencart\System\Engine\Controller {
 			$product_info['thumb'] = '';
 		}
 
+		// Images
+		$product_info['images'] = [];
+
+		$results = $this->model_catalog_product->getImages($product_info['product_id']);
+
+		foreach ($results as $result) {
+			if ($result['image'] && is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
+				$product_info['images'][] = [
+					'popup' => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height')),
+					'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_thumb_width'), $this->config->get('config_image_thumb_height'))
+				];
+			}
+		}
+
+		$product_info['product_codes'] = [];
+
 		$results = $this->model_catalog_product->getCodes($product_info['product_id']);
 
 		foreach ($results as $result) {
@@ -118,18 +134,24 @@ class Product extends \Opencart\System\Engine\Controller {
 		$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($product_info['manufacturer_id']);
 
 		if ($manufacturer_info) {
-			$data['manufacturer'] = $manufacturer_info['name'];
+			$product_info['manufacturer'] = $manufacturer_info['name'];
 		} else {
-			$data['manufacturer'] = '';
+			$product_info['manufacturer'] = '';
 		}
 
-		// Images
-		$images = $this->model_catalog_product->getImages($product_info['product_id']);
 
 		// Attributes
+
+
 		$attribute_groups = $this->model_catalog_product->getAttributes($product_info['product_id']);
 
-		$discounts = $this->model_catalog_product->getDiscounts($product_info['product_id']);
+		foreach ($results as $result) {
+
+		}
+
+		$product_info['discounts'] = $this->model_catalog_product->getDiscounts($product_info['product_id']);
+
+
 
 		$directory = DIR_CATALOG . 'view/data/' . parse_url($store_info['url'], PHP_URL_HOST) . '/catalog/';
 		$filename = 'product-' . $product_info['product_id'] . '.json';
@@ -138,12 +160,17 @@ class Product extends \Opencart\System\Engine\Controller {
 			return ['error' => sprintf($this->language->get('error_directory'), $directory)];
 		}
 
-		if (!file_put_contents($directory . $filename, json_encode(array_merge($product_info, ['description' => $this->model_catalog_product->getDescriptions($product_info['product_id'])], ['images' => $images])))) {
+		if (!file_put_contents($directory . $filename, json_encode(array_merge($product_info, ['description' => $this->model_catalog_product->getDescriptions($product_info['product_id'])])))) {
 			return ['error' => sprintf($this->language->get('error_file'), $directory . $filename)];
 		}
 
 		return ['success' => sprintf($this->language->get('text_info'), $store_info['name'], $product_info['name'])];
 	}
+
+
+
+
+
 
 	/**
 	 * Delete
