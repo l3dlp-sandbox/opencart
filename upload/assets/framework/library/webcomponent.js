@@ -1,4 +1,5 @@
 export class WebComponent extends HTMLElement {
+
     constructor() {
         super();
 
@@ -24,43 +25,43 @@ export class WebComponent extends HTMLElement {
         if (output) {
             this.innerHTML = output;
 
-            // Attach Events based on elements that have data-bind and data-on attributes
-            let elements = this.querySelectorAll('[data-bind]');
+            // Attach Events based on elements that have data-bind attributes
+            let elements = [];
+
+            // Attach attributes based on elements that have data-bind attribute
+            elements = this.querySelectorAll('[data-bind]');
 
             for (let element of elements) {
                 // Binds the element to an attribute by name.
-                if (element.hasAttribute('data-bind')) {
-                    this['$' + element.getAttribute('data-bind')] = element;
+                this['$' + element.getAttribute('data-bind')] = element;
 
-                    element.removeAttribute('data-bind');
-                }
+                element.removeAttribute('data-bind');
             }
 
+            // Attach events based on elements that have data-on attribute
             elements = this.querySelectorAll('[data-on]');
 
             for (let element of elements) {
-                let part = element.getAttribute('data-on').split(':');
+                let [event, method] = element.getAttribute('data-on').split(':');
 
-                if (part[1] !== undefined && part[1] in this) {
-                    element.addEventListener(part[0], this[part[1]].bind(this));
-
-                    element.removeAttribute('data-on');
+                if (method !== undefined && method in this) {
+                    element.addEventListener(event, this[method].bind(this));
                 }
+
+                element.removeAttribute('data-on');
             }
 
-            elements = this.querySelectorAll('a[data-target]');
+            /*
+            elements = this.querySelectorAll('[data-action]');
 
             for (let element of elements) {
-                if (element.hasAttribute('data-target')) {
-                    let part = element.getAttribute('data-on').split(':');
+                let action = element.getAttribute('data-action');
 
-                    if (part[1] !== undefined && part[1] in this) {
-                        element.addEventListener(part[0], this[part[1]].bind(this));
-
-                        element.removeAttribute('data-on');
-                    }
+                if (action in this.action) {
+                    this.action[action](element);
                 }
             }
+            */
         }
     }
 

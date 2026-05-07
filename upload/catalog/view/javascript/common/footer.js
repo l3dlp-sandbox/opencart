@@ -32,4 +32,14 @@ export default class extends Controller {
 
         return await loader.template('common/footer', { ...data, ...language, ...config });
     }
+
+    onClick(e) {
+        e.preventDefault();
+
+
+
+        console.log('works');
+        console.log(this.$contact);
+
+    }
 }

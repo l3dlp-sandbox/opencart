@@ -19,21 +19,17 @@ class Loader {
     async controller(path) {
         event.trigger('controller/' + path + '/before', { path });
 
-        let pos = path.indexOf('.');
-
-        if (pos !== undefined) {
-            //path.substr()
+        if (this.data.has(path)) {
+            return this.data.get(path);
         }
 
         let test1 = await config.fetch('default');
 
-        let controller = await import(test.config_path + path + '.js');
+        let controller = await import(test1.config_path + path + '.js');
 
-        console.log(new controller.default());
+        this.data.set('controller/' + path, new controller.default());
 
-        if (controller) {
-
-        }
+        let output = this.data.get(path);
 
         event.trigger('controller/' + path + '/after', { path, output });
 

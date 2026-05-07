@@ -1,34 +1,34 @@
 <h1>{{ text_my_account }}</h1>
 <ul class="list-unstyled">
-  <li><x-link href="account/edit" target="content">{{ text_edit }}</x-link></li>
-  <li><x-link href="account/password" target="content">{{ text_password }}</x-link></li>
-  <li><x-link href="account/payment_method" target="content">{{ text_payment_method }}</x-link></li>
-  <li><x-link href="account/address" target="content">{{ text_address }}</x-link></li>
-  <li><x-link href="account/wishlist" target="content">{{ text_wishlist }}</x-link></li>
+  <li><a href="account/edit" data-action="ajax" data-target="content">{{ text_edit }}</a></li>
+  <li><a href="account/password" data-target="content">{{ text_password }}</a></li>
+  <li><a href="account/payment_method" data-target="content">{{ text_payment_method }}</a></li>
+  <li><a href="account/address" data-target="content">{{ text_address }}</a></li>
+  <li><a href="account/wishlist" data-target="content">{{ text_wishlist }}</a></li>
 </ul>
 <h2>{{ text_my_orders }}</h2>
 <ul class="list-unstyled">
-  <li><x-link href="account/order" target="content">{{ text_order }}</x-link></li>
-  <li><x-link href="account/subscription" target="content">{{ text_subscription }}</x-link></li>
-  <li><x-link href="account/download" target="content">{{ text_download }}</x-link></li>
+  <li><a href="account/order" data-target="content">{{ text_order }}</a></li>
+  <li><a href="account/subscription" data-target="content">{{ text_subscription }}</a></li>
+  <li><a href="account/download" data-target="content">{{ text_download }}</a></li>
   {% if reward %}
-    <li><x-link href="account/reward" target="content">{{ text_reward }}</x-link></li>
+    <li><a href="account/reward" data-target="content">{{ text_reward }}</a></li>
   {% endif %}
-  <li><x-link href="account/return" target="content">{{ text_return }}</x-link></li>
-  <li><x-link href="account/transaction" target="content">{{ text_transaction }}</x-link></li>
+  <li><a href="account/return" data-target="content">{{ text_return }}</a></li>
+  <li><a href="account/transaction" data-target="content">{{ text_transaction }}</a></li>
 </ul>
 {% if affiliate %}
   <h2>{{ text_my_affiliate }}</h2>
   <ul class="list-unstyled">
     {% if not tracking %}
-      <li><x-link href="account/affiliate" target="content">{{ text_affiliate_add }}</x-link></li>
+      <li><a href="account/affiliate" data-target="content">{{ text_affiliate_add }}</a></li>
     {% else %}
-      <li><x-link href="account/affiliate" target="content">{{ text_affiliate_edit }}</x-link></li>
-      <li><x-link href="account/tracking" target="content">{{ text_tracking }}</x-link></li>
+      <li><a href="account/affiliate" data-target="content">{{ text_affiliate_edit }}</a></li>
+      <li><a href="account/tracking" data-target="content">{{ text_tracking }}</a></li>
     {% endif %}
   </ul>
 {% endif %}
 <h2>{{ text_my_newsletter }}</h2>
 <ul class="list-unstyled">
-  <li><x-link href="account/newsletter" target="content">{{ text_newsletter }}</x-link></li>
+  <li><a href="account/newsletter" data-target="content">{{ text_newsletter }}</a></li>
 </ul>

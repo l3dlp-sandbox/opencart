@@ -631,13 +631,13 @@ label.required:before, label:has(+ input:required):before, label:has(+ select:re
 .table a.asc:after {
     font-family: 'Font Awesome 6 Free';
     font-weight: 600;
-    content: " \f106";
+    content: " \f160";
 }
 
 .table a.desc:after {
     font-family: 'Font Awesome 6 Free';
     font-weight: 600;
-    content: " \f107";
+    content: " \f885";
 }
 
 .table-responsive {

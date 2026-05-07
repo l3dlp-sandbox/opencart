@@ -1,4 +1,16 @@
+import { Controller } from '../component.js';
+import { loader } from '../index.js';
 
+// Language
+const language = await loader.language('account/order');
+
+export default class extends Controller {
+    render() {
+
+
+        return loader.template('account/order', { ...language });
+    }
+}
 
 
 

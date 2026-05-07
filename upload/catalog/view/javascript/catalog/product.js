@@ -5,7 +5,7 @@ import { loader } from '../index.js';
 const config = await loader.config('default');
 
 // Language
-const language = await loader.language('catalog/product');
+const language = await loader.language('product/product');
 
 // Library
 const local = await loader.library('local');
@@ -18,17 +18,24 @@ export default class extends Controller {
     async render() {
         let data = {};
 
-        // Product Info
-        // Product Info
-        let product = loader.storage('product/product-' + this.getAttribute('product_id'));
+        console.log('product');
 
-        if (product.length) {
+        // Product Info
+        let product = await loader.storage('catalog/product-34');
+
+        console.log(product);
+
+        //if (product.length) {
+            data.product_id = product.product_id;
             data.thumb = product.thumb;
             data.popup = product.popup;
-            data.images = product.image;
+            data.images = product.images;
 
-            data.name = product.name;
-            data.description = product.description;
+            if (config.config_language in product.description) {
+                data.heading_title = product.description[config.config_language].name;
+                data.description = product.description[config.config_language].description;
+            }
+
             data.model = product.model;
 
             data.codes = product.code;
@@ -36,8 +43,8 @@ export default class extends Controller {
             data.manufacturer_id = product.manufacturer_id;
             data.manufacturer = product.manufacturer;
 
-            data.price = tax.calculate(product.price);
-            data.special = tax.calculate(product.special);
+            data.price = product.price;// tax.calculate(product.price)
+            data.special = product.special; //tax.calculate(product.special);
             data.tax = '';
 
             if (config.config_tax) {
@@ -49,7 +56,7 @@ export default class extends Controller {
             data.stock_status = product.stock_status;
 
             data.points = product.points;
-            data.rewards = product.rewards;
+            data.reward = product.reward;
 
             data.sales = product.sales;
             data.rating = product.rating;
@@ -66,9 +73,9 @@ export default class extends Controller {
 
             data.discounts = [];
 
-            for (let discount of product.discount) {
-                data.discounts = [];
-            }
+            //for (let discount of product.discount) {
+           //     data.discounts = [];
+           // }
 
             data.options = product.option;
 
@@ -77,7 +84,7 @@ export default class extends Controller {
             data.currency = currency;
 
             return loader.template('product/product', { ...data, ...language, ...config });
-        }
+        //}
     }
 
     onChange(e) {

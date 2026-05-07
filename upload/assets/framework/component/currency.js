@@ -26,7 +26,7 @@ customElements.define('x-currency', class extends WebComponent {
 
     get value() {
         if (this.hasAttribute('value')) {
-            return parseFloat(this.getAttribute('value')).toFixed(this.decimal_place);
+            return parseFloat(this.getAttribute('value')).toFixed(this.currency.decimal_place);
         }
 
         if (this.code in currencies) {

@@ -2,7 +2,7 @@ import { Controller } from '../component.js';
 import { loader } from '../index.js';
 
 // Language
-const language = await loader.language('account/edit');
+const language = await loader.language('checkout/cart');
 
 // Library
 const session = await loader.library('session');
@@ -11,7 +11,7 @@ export default class extends Controller {
     async render() {
 
 
-        return '';
+        return loader.template('checkout/cart', { ...data, ...language });
     }
 }
 

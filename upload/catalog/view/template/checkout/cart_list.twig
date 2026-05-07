@@ -32,16 +32,19 @@
                 <li>
                   <small> - {{ text_model }}: {{ product.model }}</small>
                 </li>
+
                 {% for option in product.option %}
                   <li>
                     <small> - {{ option.name }}: {{ option.value }}</small>
                   </li>
                 {% endfor %}
+
                 {% if product.subscription %}
                   <li>
                     <small> - {{ text_subscription }}: {{ product.subscription }}</small>
                   </li>
                 {% endif %}
+
                 {% if product.reward %}
                   <li>
                     <small> - {{ text_points }}: {{ product.reward }}</small>
@@ -49,9 +52,7 @@
                 {% endif %}
               </ul>
             </td>
-            <td>
-
-              <form data-on="submit:onSubmit">
+            <td><form data-on="submit:onSubmit">
                 <div class="input-group">
                   <input type="text" name="quantity" value="{{ product.quantity }}" size="1" class="form-control{% if product.minimum %} is-invalid{% endif %}"/>
                   <input type="hidden" name="key" value="{{ product.cart_id }}"/>
@@ -59,7 +60,6 @@
                   <a href="{{ product.remove }}" title="{{ button_remove }}" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"></i></a>
                 </div>
               </form>
-
               {% if product.minimum %}
                 <small class="invalid-feedback d-block">{{ product.minimum }}</small>
               {% endif %}</td>
@@ -78,7 +78,6 @@
       </tfoot>
     </table>
   </div>
-
   {% if modules %}
     <h2>{{ text_next }}</h2>
     <p>{{ text_next_choice }}</p>
@@ -88,7 +87,6 @@
       {% endfor %}
     </div>
   {% endif %}
-
   <br/>
   <div class="row">
     <div class="col"><a href="{{ continue }}" class="btn btn-light">{{ button_shopping }}</a></div>

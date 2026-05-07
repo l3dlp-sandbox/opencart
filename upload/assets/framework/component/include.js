@@ -19,43 +19,27 @@ customElements.define('x-include', class extends WebComponent {
         // Get the source HTML to load
         if (!this.src) return;
 
-        console.log('RENDER');
-        console.log(config.config_path + this.src + '.js');
+        //console.log('RENDER');
+        //console.log(config.config_path + this.src + '.js');
 
         let controller = await import(config.config_path + this.src + '.js');
 
-        let object = new controller.default();
+        let object = new controller.default(this);
+
+        let methods = Object.getOwnPropertyNames(Object.getPrototypeOf(object));
+
+        for (let method of methods) {
+            if (method !== 'render' && method !== 'constructor') {
+                if (typeof object[method] === 'function') {
+                    this[method] = object[method].bind(this);
+                }
+            }
+        }
 
         let output = await object.render();
 
-        //new URLSearchParams
-
-        //const searchParams = new URLSearchParams("key1=value1&key2=value2");
-
         if (output) {
-            this.innerHTML = output;
-
-            // Attach Events based on elements that have data-bind and data-on attributes
-            let elements = this.querySelectorAll('[data-bind], [data-on]');
-
-            for (let element of elements) {
-                // Binds the element to an attribute by name.
-                if (element.hasAttribute('data-bind')) {
-                    object['$' + element.getAttribute('data-bind')] = element;
-
-                    element.removeAttribute('data-bind');
-                }
-
-                if (element.hasAttribute('data-on')) {
-                    let part = element.getAttribute('data-on').split(':');
-
-                    if (part[1] !== undefined && part[1] in object) {
-                        element.addEventListener(part[0], object[part[1]].bind(object));
-
-                        element.removeAttribute('data-on');
-                    }
-                }
-            }
+            return output;
         }
     }
 });
