@@ -1,5 +1,4 @@
 export class WebComponent extends HTMLElement {
-
     constructor() {
         super();
 
@@ -29,19 +28,15 @@ export class WebComponent extends HTMLElement {
             let elements = [];
 
             // Attach attributes based on elements that have data-bind attribute
-            elements = this.querySelectorAll('[data-bind]');
-
-            for (let element of elements) {
+            this.querySelectorAll('[data-bind]').forEach((element) => {
                 // Binds the element to an attribute by name.
                 this['$' + element.getAttribute('data-bind')] = element;
 
                 element.removeAttribute('data-bind');
-            }
+            });
 
             // Attach events based on elements that have data-on attribute
-            elements = this.querySelectorAll('[data-on]');
-
-            for (let element of elements) {
+            this.querySelectorAll('[data-on]').forEach((element) => {
                 let [event, method] = element.getAttribute('data-on').split(':');
 
                 if (method !== undefined && method in this) {
@@ -49,7 +44,7 @@ export class WebComponent extends HTMLElement {
                 }
 
                 element.removeAttribute('data-on');
-            }
+            });
 
             /*
             elements = this.querySelectorAll('[data-action]');
